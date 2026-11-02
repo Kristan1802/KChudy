@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kristan OS</title>
+<meta name="description" content="Kristan is a product designer in Bengaluru. Open the files on this desktop to see projects, photos and how to get in touch.">
+<meta property="og:title" content="Kristan OS">
+<meta property="og:description" content="The portfolio of Kristan, a product designer in Bengaluru, set up as a desktop.">
+<meta property="og:image" content="assets/kristan.webp">
+<meta name="theme-color" content="#b9aea6">
+<!-- BUILD:HEAD -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700;1,75..100,400..700&family=Geist+Mono:wght@400..600&display=swap">
+<link rel="preload" as="image" href="assets/wall.webp">
+<link rel="preload" as="image" href="assets/wall-person.webp">
+<link rel="stylesheet" href="styles.css">
+<script>
+  try {
+    var t = localStorage.getItem("kos-theme");
+    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {}
+  document.documentElement.classList.add("js");
+</script>
+<!-- /BUILD:HEAD -->
+</head>
+<body>
+<!-- BUILD:BODY -->
+<div class="os booting" id="os">
+
+  <div class="wall" id="wall">
+    <img class="wall-img wall-bg" id="wallBg" src="assets/wall.webp" alt="" width="1200" height="1600" decoding="async">
+    <h1 class="masthead" id="masthead"><span class="mh-word" id="mhWord">Kristan</span><i class="mh-probe" id="mhProbe" aria-hidden="true"></i><span class="sr-only">, product designer in Bengaluru</span></h1>
+    <img class="wall-img wall-fg" id="wallFg" src="assets/wall-person.webp" alt="" width="1200" height="1600" decoding="async">
+    <div class="wall-shade" aria-hidden="true"></div>
+  </div>
+
+  <header class="menubar" id="menubar">
+    <div class="mb-left">
+      <button class="mb-btn mb-logo" id="logoBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="logoMenu" aria-label="Site menu"></button>
+      <button class="mb-btn mb-app" type="button" data-open="about" id="mbName">Kristan</button>
+      <nav class="mb-menus" aria-label="Windows">
+        <button class="mb-btn" type="button" data-open="work">Work</button>
+        <button class="mb-btn" type="button" data-open="about">About</button>
+        <button class="mb-btn" type="button" data-open="photos">Photos</button>
+        <button class="mb-btn" type="button" data-open="mail">Contact</button>
+      </nav>
+    </div>
+    <div class="mb-right">
+      <span class="mb-item mb-status" id="mbStatus" hidden><i aria-hidden="true"></i><span></span></span>
+      <span class="mb-item mb-sunset" id="mbSunset" hidden></span>
+      <button class="mb-btn mb-theme" id="themeBtn" type="button"></button>
+      <span class="mb-item mb-clock" id="mbClock"></span>
+    </div>
+    <div class="menu" id="logoMenu" role="menu" aria-labelledby="logoBtn" hidden>
+      <button type="button" role="menuitem" data-open="system">About this desktop</button>
+      <hr>
+      <button type="button" role="menuitem" data-action="cleanup">Clean up icons</button>
+      <button type="button" role="menuitem" data-action="closeall">Close all windows</button>
+      <hr>
+      <button type="button" role="menuitem" data-action="theme">Switch appearance</button>
+    </div>
+  </header>
+
+  <main class="desktop" id="desktop" aria-label="Desktop">
+    <p class="coverline coverline-l" id="coverL"></p>
+    <p class="coverline coverline-r" id="coverR"></p>
+    <ul class="icons" id="icons" aria-label="Files on the desktop"></ul>
+    <div class="band" id="band" hidden></div>
+    <aside class="sticky" id="sticky" hidden></aside>
+    <p class="hint" id="hint" role="status" aria-live="polite"></p>
+  </main>
+
+  <div class="windows" id="windows"></div>
+
+  <nav class="dock" id="dock" aria-label="Dock"><ul class="dock-row" id="dockRow"></ul></nav>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <noscript><p class="noscript">This desktop needs JavaScript. Write to Kristan at hello@kristan.design.</p></noscript>
+</div>
+<script src="content.js"></script>
+<script src="main.js"></script>
+<!-- /BUILD:BODY -->
+</body>
+</html>
