@@ -27,14 +27,14 @@ window.PORTFOLIO = {
     right: ["Bengaluru, India", "12.97° N 77.59° E"],
   },
 
-  // The desktop wallpaper is two layers made from one photo by tools/make-wallpaper.py:
-  // the scene with you removed (blurred), and you cut out. The name sits between them.
+  // The wallpaper is you, cut out of the photo with a few motion-blur streaks, on a plain
+  // off-white desktop (the colour is --wall in styles.css). tools/make-wallpaper.py makes it.
   // `head` is where the top of your head is in the photo, in pixels, so the name can tuck behind it.
   wallpaper: {
-    background: "assets/wall.webp",
+    background: "", // optional photo behind you, e.g. "assets/wall.webp" from make-wallpaper.py --scene
     person: "assets/wall-person.webp", // set to "" to put the name in front of everything
     size: [1200, 1600],
-    head: { x: 552, top: 506, height: 205, left: 445, right: 660 },
+    head: { x: 550, top: 506, height: 210, left: 445, right: 655 },
   },
 
   photo: {

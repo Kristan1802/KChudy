@@ -219,7 +219,7 @@
       case "links":
         return base(
           C.ink,
-          `<circle cx="30" cy="30" r="15" fill="none" stroke="${C.cream}" stroke-width="2"/><ellipse cx="30" cy="30" rx="6.5" ry="15" fill="none" stroke="${C.cream}" stroke-width="1.8"/><path d="M15.5 25h29M15.5 35h29" stroke="${C.cream}" stroke-width="1.6"/><circle cx="44" cy="17" r="4.5" fill="${C.sun}"/>`
+          `<circle cx="30" cy="30" r="15" fill="none" stroke="${C.cream}" stroke-width="2"/><ellipse cx="30" cy="30" rx="6.5" ry="15" fill="none" stroke="${C.cream}" stroke-width="1.8"/><path d="M15.5 25h29M15.5 35h29" stroke="${C.cream}" stroke-width="1.6"/><circle cx="44" cy="17" r="4.5" fill="${C.sun}"/><rect x="2.5" y="2.5" width="55" height="55" rx="12.5" fill="none" stroke="rgba(255,240,225,.16)"/>`
         );
       case "trash":
         return `<svg viewBox="0 0 60 60" aria-hidden="true"><rect x="13" y="12" width="34" height="5" rx="2" fill="rgba(255,255,255,.85)" stroke="rgba(40,20,10,.25)"/><path d="M15 19h30l-2.6 31a3 3 0 0 1-3 2.8H20.6a3 3 0 0 1-3-2.8z" fill="rgba(255,255,255,.55)" stroke="rgba(255,255,255,.9)" stroke-width="1.2"/><path d="M23 24l1 23M30 24v23M37 24l-1 23" stroke="rgba(40,20,10,.25)" stroke-width="1.6" stroke-linecap="round"/></svg>`;
@@ -244,7 +244,11 @@
   };
   const wallBg = $("#wallBg");
   const wallFg = $("#wallFg");
-  if (WP.background && !wallBg.src.endsWith(WP.background)) wallBg.src = WP.background;
+  if (WP.background) {
+    wallBg.src = WP.background;
+    wallBg.hidden = false;
+  }
+  $("#wall").classList.toggle("is-plain", !WP.background);
   if (WP.person === "") wallFg.hidden = true;
   else if (WP.person && !wallFg.src.endsWith(WP.person)) wallFg.src = WP.person;
   const mast = $("#masthead");
@@ -287,11 +291,13 @@
     // Scale and place the photo so the top of the cap tucks under the letters.
     const overlap = phone ? 0.26 : 0.32;
     const headPx = H * (phone ? 0.17 : 0.3);
-    const s = Math.max(W / SRC.w, H / SRC.h, headPx / SRC.headH);
-    let x = W * (phone ? 0.5 : 0.5) - SRC.headX * s;
+    // With a background photo it has to cover the screen; on the plain desktop only the
+    // cut-off bottom edge of the photo must stay below the screen.
+    const s = Math.max(H / SRC.h, headPx / SRC.headH, WP.background ? W / SRC.w : 0);
+    let x = W * 0.5 - SRC.headX * s;
     let y = baseline - capA * overlap - SRC.headTop * s;
-    x = clamp(x, W - SRC.w * s, 0);
-    y = clamp(y, H - SRC.h * s, 0);
+    if (WP.background) x = clamp(x, W - SRC.w * s, 0);
+    y = WP.background ? clamp(y, H - SRC.h * s, 0) : Math.max(y, H - SRC.h * s);
     baseline = y + SRC.headTop * s + capA * overlap;
     mast.style.top = baseline - probeY + "px";
     for (const img of [wallBg, wallFg]) {
@@ -1127,7 +1133,7 @@
             <dl class="kv">
               <dt>Designer</dt><dd>${esc(firstName)}, ${esc(D.role)}</dd>
               <dt>Location</dt><dd>${esc(D.location)}</dd>
-              <dt>Wallpaper</dt><dd>A lake at sunset, shot on a phone</dd>
+              <dt>Wallpaper</dt><dd>Golden hour at the lake, cut out and motion-blurred</dd>
               <dt>Type</dt><dd>Fraunces, Instrument Sans, Geist Mono</dd>
               <dt>Built with</dt><dd>HTML, CSS and JavaScript</dd>
               <dt>Projects</dt><dd>${projects.length}</dd>

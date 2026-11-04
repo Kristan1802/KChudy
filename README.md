@@ -1,12 +1,12 @@
 # Kristan OS
 
-A portfolio set up as a desktop. Your sunset photo is the wallpaper, your name sits behind your head like a magazine masthead, and every project is a file you can open.
+A portfolio set up as a desktop. You, cut out of your sunset photo with a few motion-blur streaks, stand on a plain off-white desktop. Your name sits behind your head like a magazine masthead, and every project is a file you can open.
 
 It is plain HTML, CSS and JavaScript. There is no build step and nothing to install.
 
 ## What's on it
 
-- **Wallpaper.** The photo is split into two layers: the lake and sky (blurred), and you, cut out. **KRISTAN** sits between them, so the top of your cap covers part of the letters. In light mode the sunset glows through the name; in dark mode the photo dims and the name turns cream.
+- **Wallpaper.** A flat off-white desktop with you cut out of the photo on top: softly blurred, with a trail behind your head, a sideways drag through the torso and a faint ghost of the whole figure. **KRISTAN** sits behind you, so the top of your cap covers part of the letters. The figure fades into the background towards the bottom of the screen. In dark mode the desktop turns near-black and the name turns cream.
 - **Menu bar.** The sun menu (About this desktop, Clean up icons, Close all windows, Switch appearance), shortcuts to Work, About, Photos and Contact, an "Available" badge, today's sunset time in Bengaluru, a light/dark switch and your local time.
 - **Desktop icons.** Eight projects plus `kristan.jpg`, `README.txt`, `Resume.pdf` and a Photos folder. Click to select, double-click (or tap, or press Enter) to open. Drag them around, or drag on empty space to select several. Positions are remembered in the visitor's browser.
 - **Info windows.** Each project opens a Get Info–style window: summary, Details (type, role, team, timeline), Results, Process and a Preview. Windows can be dragged, resized, minimised to the dock, zoomed and closed. Press Esc to close the front window.
@@ -14,7 +14,7 @@ It is plain HTML, CSS and JavaScript. There is no build step and nothing to inst
 - **Phones.** The desktop becomes a home screen: name at the top, app grid at the bottom, windows open as full-screen sheets.
 - **Links.** Every window has its own address, for example `yoursite.com/#ledger`, `#about`, `#cv`, `#photos` or `#contact`.
 
-Type: **Fraunces** (soft, 70s-style serif) for the name and headings, **Instrument Sans** for the interface and **Geist Mono** for small details. Colours come from the photo: sunset amber and the oxblood, sky-blue and cream stripes of the T-shirt.
+Type: **Fraunces** (soft, 70s-style serif) for the name and headings, **Instrument Sans** for the interface and **Geist Mono** for small details. Colours come from the photo: sunset amber and the oxblood, sky-blue and cream stripes of the T-shirt. The desktop colour is `--wall` at the top of `styles.css`.
 
 ## Make it yours
 
@@ -33,14 +33,17 @@ Also update the `<title>`, description and the email in the `<noscript>` line in
 
 ### Changing the photo
 
-The wallpaper needs the photo split into two layers. A script does it for you:
+The wallpaper is you, cut out of the photo, with the motion blur baked in. A script makes it:
 
 ```sh
 pip install pillow numpy onnxruntime
 python tools/make-wallpaper.py path/to/photo.jpg
 ```
 
-It writes `assets/wall.webp` and `assets/wall-person.webp` and prints a `wallpaper` block to paste into `content.js`. The first run downloads a 170 MB person-segmentation model. If you'd rather skip this, point `wallpaper.background` at any photo and set `wallpaper.person` to `""`; the name then sits in front.
+It writes `assets/wall-person.webp` and prints a `wallpaper` block to paste into `content.js`. The first run downloads a 170 MB person-segmentation model.
+
+- Add `--still` for a clean cut-out without motion blur.
+- Add `--scene` to also keep the original scene, blurred, as `assets/wall.webp`. Set `wallpaper.background` to that file to put it behind you instead of the plain desktop.
 
 The other images in `assets/` (`kristan.webp`, `face.webp` and the crops used in Photos and Golden Hour) are ordinary files you can replace.
 
