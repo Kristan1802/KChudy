@@ -150,7 +150,7 @@
           <circle cx="50" cy="50" r="35" fill="${C.cream}"/>
           <circle cx="50" cy="50" r="31" fill="none" stroke="${C.ox}" stroke-width=".9"/>
           <path id="cp${k}" d="M50 50m-24.5 0a24.5 24.5 0 1 1 49 0a24.5 24.5 0 1 1-49 0" fill="none"/>
-          <text class="cv-mono" font-size="5.6" font-weight="600" letter-spacing="1.55" fill="${C.ox}"><textPath href="#cp${k}">CHAI CLUB · INDIRANAGAR · SINCE 2025 ·</textPath></text>
+          <text class="cv-mono" font-size="5.6" font-weight="500" letter-spacing="1.55" fill="${C.ox}"><textPath href="#cp${k}">CHAI CLUB · INDIRANAGAR · SINCE 2025 ·</textPath></text>
           <path d="M40.5 45h19v6.5a9.5 9.5 0 0 1-19 0z" fill="${C.ox}"/>
           <path d="M59.5 47.2h2.3a3.6 3.6 0 0 1 0 7.2h-3" stroke="${C.ox}" stroke-width="2" fill="none"/>
           <path d="M45 41c-1.6-2.2 1.6-3.2 0-5.4M50 41c-1.6-2.2 1.6-3.2 0-5.4M55 41c-1.6-2.2 1.6-3.2 0-5.4" stroke="${C.ox}" stroke-width="1.3" fill="none" stroke-linecap="round"/>
@@ -259,7 +259,8 @@
   function capAscent(fs) {
     try {
       const ctx = document.createElement("canvas").getContext("2d");
-      ctx.font = `800 ${fs}px Fraunces, Georgia, serif`;
+      const cs = getComputedStyle(mast);
+      ctx.font = `${cs.fontWeight} ${fs}px ${cs.fontFamily}`;
       const m = ctx.measureText(mhWord.textContent.toUpperCase());
       if (m.actualBoundingBoxAscent > 0) return m.actualBoundingBoxAscent;
     } catch (e) {}
@@ -1134,7 +1135,7 @@
               <dt>Designer</dt><dd>${esc(firstName)}, ${esc(D.role)}</dd>
               <dt>Location</dt><dd>${esc(D.location)}</dd>
               <dt>Wallpaper</dt><dd>Golden hour at the lake, cut out and motion-blurred</dd>
-              <dt>Type</dt><dd>Fraunces, Instrument Sans, Geist Mono</dd>
+              <dt>Type</dt><dd>Bodoni Moda, Bricolage Grotesque, DM Mono</dd>
               <dt>Built with</dt><dd>HTML, CSS and JavaScript</dd>
               <dt>Projects</dt><dd>${projects.length}</dd>
             </dl>
@@ -1484,7 +1485,7 @@
   mqPhone.addEventListener("change", relayout);
   if (document.fonts) {
     document.fonts.ready.then(relayout);
-    document.fonts.load('800 100px "Fraunces"').then(relayout, () => {});
+    document.fonts.load('600 100px "Bodoni Moda"').then(relayout, () => {});
   }
   [wallBg, wallFg].forEach((img) => img.complete || img.addEventListener("load", relayout, { once: true }));
 

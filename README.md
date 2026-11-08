@@ -14,7 +14,7 @@ It is plain HTML, CSS and JavaScript. There is no build step and nothing to inst
 - **Phones.** The desktop becomes a home screen: name at the top, app grid at the bottom, windows open as full-screen sheets.
 - **Links.** Every window has its own address, for example `yoursite.com/#ledger`, `#about`, `#cv`, `#photos` or `#contact`.
 
-Type: **Fraunces** (soft, 70s-style serif) for the name and headings, **Instrument Sans** for the interface and **Geist Mono** for small details. Colours come from the photo: sunset amber and the oxblood, sky-blue and cream stripes of the T-shirt. The desktop colour is `--wall` at the top of `styles.css`.
+Type, set like a fashion-magazine cover: **Bodoni Moda** (a high-contrast Didone) for the name, with italics for headings and cover lines; **Bricolage Grotesque** for the interface and spaced small caps; **DM Mono** for small details. The fonts are the three `--font-*` tokens at the top of `styles.css`. Colours come from the photo: sunset amber and the oxblood, sky-blue and cream stripes of the T-shirt. The desktop colour is `--wall` at the top of `styles.css`.
 
 ## Make it yours
 
