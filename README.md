@@ -1,51 +1,62 @@
-# Kristan OS
+# Kristan · Design what excites
 
-A portfolio set up as a desktop. You, cut out of your sunset photo with a few motion-blur streaks, stand on a plain off-white desktop. Your name sits behind your head like a magazine masthead, and every project is a file you can open.
+A portfolio set in a pixel-art room at night, looking out over Hyderabad. Visitors look around the room. The laptop, the sketchbook and the chai each zoom the camera in and open a page.
 
 It is plain HTML, CSS and JavaScript. There is no build step and nothing to install.
 
-## What's on it
+## What's in the room
 
-- **Wallpaper.** A flat off-white desktop with you cut out of the photo on top: softly blurred, with a trail behind your head, a sideways drag through the torso and a faint ghost of the whole figure. **KRISTAN** sits behind you, so the top of your cap covers part of the letters. The figure fades into the background towards the bottom of the screen. In dark mode the desktop turns near-black and the name turns cream.
-- **Menu bar.** The sun menu (About this desktop, Clean up icons, Close all windows, Switch appearance), shortcuts to Work, About, Photos and Contact, an "Available" badge, today's sunset time in Bengaluru, a light/dark switch and your local time.
-- **Desktop icons.** Eight projects plus `kristan.jpg`, `README.txt`, `Resume.pdf` and a Photos folder. Click to select, double-click (or tap, or press Enter) to open. Drag them around, or drag on empty space to select several. Positions are remembered in the visitor's browser.
-- **Info windows.** Each project opens a Get Info–style window: summary, Details (type, role, team, timeline), Results, Process and a Preview. Windows can be dragged, resized, minimised to the dock, zoomed and closed. Press Esc to close the front window.
-- **Dock.** About (with About me, CV, Interests and Contact tabs), Work (a list of every project), Photos (a gallery with a viewer), Mail (a message that opens in the visitor's email app, plus a copy button), Links and Trash. Icons magnify on hover.
-- **Phones.** The desktop becomes a home screen: name at the top, app grid at the bottom, windows open as full-screen sheets.
-- **Links.** Every window has its own address, for example `yoursite.com/#ledger`, `#about`, `#cv`, `#photos` or `#contact`.
+- **Things to open.** A small bouncing marker sits over each one.
+  - **Sketchbook** (or the corkboard on the wall) → **About**, a corkboard with a timeline of where you've worked, sticky notes, polaroids, "things I can do" and your toolkit. On a desktop the notes can be dragged around.
+  - **Laptop** (or the binders on the shelf) → **Work**, a laptop screen with filterable project cards. Each card opens a full case study: problem, process, results, links and the next/previous project.
+  - **Chai mug** → **Contact**, a letter on the desk with your email (with a copy button) and availability, plus a chai-stall receipt that lists your socials.
+- **Things to play with.** Hover anything for a label. Click the neon sign or the lamp to switch them off. Click the moon for a shooting star. Click the cat (it stays asleep).
+- **Things that move by themselves.** The neon flickers now and then, stars twinkle, shooting stars cross the sky, the bridge lights shift colour, the lake reflections ripple, the lantern flickers, the chai steams and the cat breathes and snores.
+- **Camera.** On a computer the room leans gently towards the mouse, which also reveals the edges on screens that crop the picture. On a phone the room keeps its height and you swipe sideways to look around.
+- **Menu bar.** Your name (top left), a live clock in your time zone (top right) and Work / About / Contact at the bottom, the same as clicking the objects.
+- **Links.** Every page has its own address: `#about`, `#work`, `#contact` and `#work/ledger` for a single project. Back and forward work, and Esc goes back.
 
-Type, set like a fashion-magazine cover: **Bodoni Moda** (a high-contrast Didone) for the name, with italics for headings and cover lines; **Bricolage Grotesque** for the interface and spaced small caps; **DM Mono** for small details. The fonts are the three `--font-*` tokens at the top of `styles.css`. Colours come from the photo: sunset amber and the oxblood, sky-blue and cream stripes of the T-shirt. The desktop colour is `--wall` at the top of `styles.css`.
+Type: **Instrument Serif** for headings, **Instrument Sans** for text, **VT323** (a pixel font) for labels and the receipt, and **Gochi Hand** for anything handwritten. The fonts are the `--f-*` tokens at the top of `room.css`.
 
 ## Make it yours
 
 Nearly everything lives in **`content.js`**:
 
-1. Change `name`, `role`, `location`, `city`, `timezone`, `coords`, `email` and `availability`.
-2. Rewrite `coverlines` (the two small lines either side of your head) and the `about` section.
-3. Replace the sample `projects`. Each has a `desk` position (`x` and `y` are percentages of the screen) and a `cover`:
+1. Change `name`, `role`, `city`, `timezone`, `tz`, `email`, `availability` and `socials`.
+2. Rewrite `about`: the typed intro, `experience` (the timeline), `interests` (one sticky note each), `canDo`, `toolkit`, `currently` and `polaroids`.
+3. Replace the sample `projects`. Each has a `group` (`product`, `visual` or `personal`, used by the filter chips) and a `cover`:
    - `{ art: "phone" | "dashboard" | "meals" | "nets" | "stripes" | "chai" | "monsoon", bg: "#hex" }` for a drawn cover, or
    - `{ image: "assets/your-cover.jpg" }` for a real image.
-4. Edit `files`, `photos`, `socials` and `trash`.
-5. To link a real résumé, put the PDF in `assets/` and set `resume: "assets/resume.pdf"`.
-6. Set `sample: false` to remove the sticky note.
+4. To link a résumé, put the PDF in `assets/` and set `resume: "assets/resume.pdf"`. A download button appears on the corkboard and the contact letter.
+5. Edit the `spots` to change what the labels say or what each object does.
 
-Also update the `<title>`, description and the email in the `<noscript>` line in `index.html`.
+The companies, projects and numbers in `content.js` are sample content.
 
-### Changing the photo
+Also update the `<title>`, the description and the email in the `<noscript>` block in `index.html`.
 
-The wallpaper is you, cut out of the photo, with the motion blur baked in. A script makes it:
+### Spots and coordinates
 
-```sh
-pip install pillow numpy onnxruntime
-python tools/make-wallpaper.py path/to/photo.jpg
-```
+Each spot is a box in **picture pixels** of `assets/room.webp` (2000 × 1125): `x`, `y` for the top-left corner, then `w` and `h`. Open the image in any editor and read the coordinates off it.
 
-It writes `assets/wall-person.webp` and prints a `wallpaper` block to paste into `content.js`. The first run downloads a 170 MB person-segmentation model.
+- `go: "about" | "work" | "contact"` opens that page, zooming into this spot.
+- `action: "neon" | "lamp" | "cat" | "moon"` does something in the room.
+- `primary: true` adds the bouncing marker.
+- `place: "below"` puts the label under the spot, for things near the top of the picture.
 
-- Add `--still` for a clean cut-out without motion blur.
-- Add `--scene` to also keep the original scene, blurred, as `assets/wall.webp`. Set `wallpaper.background` to that file to put it behind you instead of the plain desktop.
+`zoomTo` sets which spot the camera zooms into when a page is opened from the menu instead.
 
-The other images in `assets/` (`kristan.webp`, `face.webp` and the crops used in Photos and Golden Hour) are ordinary files you can replace.
+### Changing the picture
+
+Replace `assets/room.webp` with another 16:9 picture and update the `spots`. The moving effects (neon, lamp, lantern, steam, cat, stars, bridge, lake) are placed in the same picture pixels near the top of the "Room effects" section of `room.js`. Move or delete them to match the new picture.
+
+## Files
+
+- `index.html`: the page.
+- `content.js`: your words, projects and the spots in the room.
+- `room.css`: all styling.
+- `room.js`: the room, the camera, the pages and the address handling.
+- `assets/`: the room picture and photos.
+- `desktop/`: the earlier desktop-style version of this portfolio, kept as it was. It is served at `/desktop/`.
 
 ## Run it locally
 

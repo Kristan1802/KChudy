@@ -1,48 +1,24 @@
 /*
- * Everything on the desktop comes from this file.
+ * Everything in the room comes from this file.
  * Edit the text, save, refresh. There is no build step.
  *
- * The projects, companies and numbers below are SAMPLE content.
- * Replace them with your own, then set `sample` to false to remove the sticky note.
+ * The companies, projects and numbers below are SAMPLE content.
+ * Replace them with your own.
  *
- * Desktop positions (`desk`) are percentages of the screen: x from the left, y from the top.
- * Visitors can drag icons around; "Clean up icons" in the sun menu puts them back here.
+ * Room coordinates (`spots`) are pixels in assets/room.webp, which is 2000 × 1125.
+ * Open the image in any editor, hover over an object and copy the x / y you see.
  */
-window.PORTFOLIO = {
-  sample: true,
-
+window.ROOM = {
   name: "Kristan",
   role: "Product designer",
-  location: "Bengaluru, India",
-  city: "Bengaluru",
-  timezone: "Asia/Kolkata", // any IANA zone, e.g. "Europe/Berlin"
-  coords: { lat: 12.97, lon: 77.59 }, // used for "Sunset" in the menu bar. Remove to hide it.
+  city: "Hyderabad",
+  location: "Hyderabad, India",
+  timezone: "Asia/Kolkata", // any IANA zone
+  tz: "IST", // the label next to the clock
   email: "hello@kristan.design",
-  availability: "Available Jan 2027", // set to "" to hide the menu bar badge
-  resume: "", // e.g. "assets/resume.pdf". Empty opens the CV tab instead.
-
-  // Small lines either side of your head, under the name. One string per line.
-  coverlines: {
-    left: ["Product designer.", "Fintech, B2B and consumer apps."],
-    right: ["Bengaluru, India", "12.97° N 77.59° E"],
-  },
-
-  // The wallpaper is you, cut out of the photo with a few motion-blur streaks, on a plain
-  // off-white desktop (the colour is --wall in styles.css). tools/make-wallpaper.py makes it.
-  // `head` is where the top of your head is in the photo, in pixels, so the name can tuck behind it.
-  wallpaper: {
-    background: "", // optional photo behind you, e.g. "assets/wall.webp" from make-wallpaper.py --scene
-    person: "assets/wall-person.webp", // set to "" to put the name in front of everything
-    size: [1200, 1600],
-    head: { x: 550, top: 506, height: 210, left: 445, right: 655 },
-  },
-
-  photo: {
-    src: "assets/kristan.webp",
-    small: "assets/kristan-600.webp",
-    face: "assets/face.webp",
-    alt: "Kristan in a striped T-shirt and cap, leaning on a railing above a lake at sunset",
-  },
+  availability: "Available from Jan 2027", // "" hides it
+  resume: "", // e.g. "assets/resume.pdf". Empty hides the button.
+  motto: "Design what excites.",
 
   socials: [
     { label: "LinkedIn", handle: "in/kristan", url: "https://www.linkedin.com/" },
@@ -51,30 +27,65 @@ window.PORTFOLIO = {
     { label: "Instagram", handle: "@kristan", url: "https://www.instagram.com/" },
   ],
 
+  /* ---------------- The room ----------------
+   * Each spot is something you can hover in the room.
+   *   go:      "about" | "work" | "contact" opens that page with a zoom into this spot
+   *   action:  "neon" | "lamp" | "cat" | "moon" does something in the room
+   *   primary: shows a little bouncing marker so people find it
+   *   place:   "below" puts the label under the spot (for things near the top)
+   *   align:   "start" | "end" lines the label up with the spot's left or right edge
+   */
+  spots: [
+    { id: "sketchbook", x: 842, y: 568, w: 126, h: 128, tip: "Peek at my sketchbook, this is me", go: "about", primary: true },
+    { id: "laptop", x: 104, y: 636, w: 248, h: 66, tip: "Open the laptop, my work lives here", go: "work", primary: true },
+    { id: "mug", x: 420, y: 574, w: 86, h: 72, tip: "Chai's on me. Let's talk", go: "contact", primary: true },
+    { id: "corkboard", x: 0, y: 280, w: 182, h: 172, tip: "Pinned up: the story so far", go: "about", align: "start" },
+    { id: "binders", x: 1665, y: 748, w: 205, h: 154, tip: "Case studies, filed", go: "work", align: "end" },
+    { id: "neon", x: 212, y: 188, w: 312, h: 202, tip: "House rule. Click to switch it off", action: "neon" },
+    { id: "lamp", x: 424, y: 408, w: 132, h: 160, tip: "Mood lighting. Click me", action: "lamp" },
+    { id: "lantern", x: 244, y: 394, w: 162, h: 236, tip: "Keeps the light on for late nights" },
+    { id: "crew", x: 236, y: 18, w: 252, h: 110, tip: "The crew. They review every design", place: "below" },
+    { id: "crew2", x: 1838, y: 92, w: 162, h: 272, tip: "More of the crew", align: "end" },
+    { id: "poster", x: 96, y: 108, w: 96, h: 166, tip: "A print of the night sky", align: "start" },
+    { id: "books", x: 90, y: 476, w: 104, h: 166, tip: "On the desk: Thinking in Systems", align: "start" },
+    { id: "moon", x: 1518, y: 48, w: 74, h: 66, tip: "Night owl hours. Click to make a wish", action: "moon", place: "below" },
+    { id: "bridge", x: 716, y: 138, w: 456, h: 238, tip: "Durgam Cheruvu cable bridge" },
+    { id: "charminar", x: 1448, y: 168, w: 190, h: 254, tip: "Charminar. Home, Hyderabad" },
+    { id: "ps5", x: 1752, y: 462, w: 248, h: 236, tip: "Player 2? Coming soon…", align: "end" },
+    { id: "beanbag", x: 1690, y: 866, w: 310, h: 259, tip: "The thinking spot", align: "end" },
+    { id: "cat", x: 24, y: 928, w: 300, h: 154, tip: "Shh. The cat is asleep", action: "cat", align: "start" },
+  ],
+
+  // Which spot the camera zooms into when a page is opened from the menu.
+  zoomTo: { about: "sketchbook", work: "laptop", contact: "mug" },
+
+  /* ---------------- About (the corkboard) ---------------- */
   about: {
+    hello: "Hi, I'm Kristan!",
+    // The typed card: the official version.
     intro:
       "Product designer, sometimes photographer, occasional type nerd. I design fintech and B2B products people understand and trust, and I care about the numbers after launch as much as the pixels before it.",
+    // A crop of you from the room, used as the photo on the typed card. Pixels in assets/room.webp.
+    roomCrop: { x: 520, y: 330, w: 470, h: 420, caption: "Me, mid-sketch. Mostly seen from behind." },
+    experience: [
+      { years: "2024 – now", role: "Senior Product Designer", company: "Northwind Pay", where: "Hyderabad", note: "Onboarding, KYC and payments for 2M people." },
+      { years: "2022 – 2024", role: "Product Designer", company: "Fieldwork Labs", where: "Remote", note: "Field inspection tools and a 60-component design system." },
+      { years: "2021 – 2022", role: "UI/UX Designer", company: "Studio Kettle", where: "Bengaluru", note: "Apps and identities for small food and retail brands." },
+      { years: "2017 – 2021", role: "B.Des, Interaction Design", company: "Design school", where: "", note: "" },
+    ],
     canDo: [
-      "Product design, from research to shipped UI",
+      "Product design, research to shipped UI",
       "Design systems and tokens",
-      "User research and usability testing",
+      "User research and usability tests",
       "Prototyping in Figma, ProtoPie and code",
       "Interaction and motion design",
-      "Visual identity and logos",
-      "Posters, covers and type",
-      "Photography",
-      "Landing pages in Framer or HTML and CSS",
+      "Identity, posters and type",
     ],
-    experience: [
-      { years: "2024 – now", role: "Senior Product Designer", company: "Northwind Pay" },
-      { years: "2022 – 2024", role: "Product Designer", company: "Fieldwork Labs" },
-      { years: "2021 – 2022", role: "UI/UX Designer", company: "Studio Kettle" },
-    ],
-    education: [{ years: "2017 – 2021", role: "B.Des, Interaction Design", company: "Design school" }],
-    toolkit: ["Figma", "FigJam", "ProtoPie", "Framer", "Maze", "Mixpanel", "Rive", "Lightroom", "HTML & CSS"],
+    toolkit: ["Figma", "FigJam", "ProtoPie", "Framer", "Rive", "Maze", "Mixpanel", "Lightroom", "HTML & CSS"],
+    // The real version: one sticky note each.
     interests: [
       { title: "Golden hour", text: "I plan walks around the sunset. Most of my photos happen in the 40 minutes before it." },
-      { title: "Lakes of Bengaluru", text: "Slowly visiting every lake in the city. 23 so far." },
+      { title: "Lakes", text: "Visiting every lake in the city. Durgam Cheruvu is the one outside my window." },
       { title: "Cricket nets", text: "Weekend batting, which turned into a side project." },
       { title: "Old type specimens", text: "Collecting scans of 1970s type catalogues." },
     ],
@@ -83,8 +94,18 @@ window.PORTFOLIO = {
       { label: "Reading", value: "Thinking in Systems, Donella Meadows" },
       { label: "Building", value: "A booking app for my local cricket nets" },
     ],
+    polaroids: [
+      { src: "assets/kristan-600.webp", alt: "Kristan in a striped T-shirt and cap, leaning on a railing above a lake at sunset", caption: "golden hour, as usual" },
+      { src: "assets/cap.webp", alt: "Portrait in a cap against an orange sky", caption: "thinking face" },
+      { src: "assets/lake.webp", alt: "A wooded island on a still lake at dusk", caption: "the island nobody can reach" },
+    ],
   },
 
+  /* ---------------- Work (the laptop) ----------------
+   * group: "product" | "visual" | "personal" (the filter chips on the laptop)
+   * cover: { art: "phone" | "dashboard" | "meals" | "nets" | "stripes" | "chai" | "monsoon", bg: "#hex" }
+   *        or { image: "assets/your-cover.jpg" }
+   */
   projects: [
     {
       id: "ledger",
@@ -92,6 +113,7 @@ window.PORTFOLIO = {
       client: "Northwind Pay",
       kind: "Mobile app",
       year: "2025",
+      group: "product",
       type: ["Product design", "Research", "Prototyping", "A/B testing"],
       role: "Lead product designer",
       team: "Me, a PM, 4 engineers and a compliance lead",
@@ -113,7 +135,6 @@ window.PORTFOLIO = {
       ],
       links: [{ label: "View the prototype", url: "https://www.figma.com/" }],
       cover: { art: "phone", bg: "#1f5652" },
-      desk: { x: 6, y: 40 },
     },
     {
       id: "fieldnote",
@@ -121,6 +142,7 @@ window.PORTFOLIO = {
       client: "Fieldwork Labs",
       kind: "Web app",
       year: "2024",
+      group: "product",
       type: ["Product design", "Design system", "Field research"],
       role: "Product designer",
       team: "2 designers, 6 engineers and a PM",
@@ -141,7 +163,6 @@ window.PORTFOLIO = {
       ],
       links: [{ label: "Read the write-up", url: "https://medium.com/" }],
       cover: { art: "dashboard", bg: "#4a6684" },
-      desk: { x: 17, y: 49 },
     },
     {
       id: "dabba",
@@ -149,6 +170,7 @@ window.PORTFOLIO = {
       client: "Dabba Meals, freelance",
       kind: "Mobile app",
       year: "2023",
+      group: "product",
       type: ["Product design", "0 to 1", "Visual design"],
       role: "Product designer",
       team: "Me, the founder and 2 engineers",
@@ -169,7 +191,6 @@ window.PORTFOLIO = {
       ],
       links: [{ label: "See it on the Play Store", url: "https://play.google.com/" }],
       cover: { art: "meals", bg: "#c4532f" },
-      desk: { x: 5, y: 62 },
     },
     {
       id: "nets",
@@ -177,6 +198,7 @@ window.PORTFOLIO = {
       client: "Side project",
       kind: "Booking app",
       year: "2026",
+      group: "personal",
       type: ["Product design", "Prototyping", "In progress"],
       role: "Everything",
       team: "Me, and the people who keep asking for a slot",
@@ -192,51 +214,19 @@ window.PORTFOLIO = {
       results: [{ value: "Beta", label: "with 30 regulars in December" }],
       links: [],
       cover: { art: "nets", bg: "#38623f" },
-      desk: { x: 18, y: 71 },
-    },
-    {
-      id: "golden-hour",
-      name: "Golden Hour",
-      client: "Personal",
-      kind: "Photo series",
-      year: "2026",
-      type: ["Photography", "Editing"],
-      role: "Photographer",
-      summary:
-        "A running series shot in the 40 minutes before sunset at lakes around Bengaluru. One camera, no reflectors, whatever the sky gives.",
-      gallery: [
-        { src: "assets/sun.webp", alt: "The sun breaking through cloud above a lake" },
-        { src: "assets/lake.webp", alt: "A wooded island on a still lake at dusk" },
-        { src: "assets/cap.webp", alt: "Portrait in a cap against an orange sky" },
-      ],
-      cover: { image: "assets/sun.webp" },
-      desk: { x: 30, y: 58 },
-    },
-    {
-      id: "stripe-study",
-      name: "Stripe Study",
-      client: "Personal",
-      kind: "Poster series",
-      year: "2026",
-      type: ["Typography", "Poster", "Colour"],
-      role: "Designer",
-      summary:
-        "Twelve posters built from one T-shirt: oxblood, sky blue and cream stripes, set against a single letter. A way to practise colour with a fixed palette.",
-      cover: { art: "stripes", bg: "#5a2722" },
-      desk: { x: 72, y: 50 },
     },
     {
       id: "chai-club",
       name: "Chai Club",
-      client: "Chai Club, Indiranagar",
+      client: "Chai Club, Banjara Hills",
       kind: "Visual identity",
       year: "2025",
+      group: "visual",
       type: ["Logo", "Identity", "Packaging"],
       role: "Designer, freelance",
       summary:
         "Identity for a twelve-seat chai counter: a round stamp that works on paper cups, the shop sign and a loyalty card stamped by hand.",
       cover: { art: "chai", bg: "#e39a3c" },
-      desk: { x: 84, y: 43 },
     },
     {
       id: "monsoon",
@@ -244,36 +234,51 @@ window.PORTFOLIO = {
       client: "Ira Menon",
       kind: "EP cover",
       year: "2025",
+      group: "visual",
       type: ["Art direction", "Cover design", "Typography"],
       role: "Designer",
       summary:
         "Cover art and type for a friend's four-track EP, recorded during the rains. Rain lines set at the angle of the lyric sheet, and nothing else.",
       cover: { art: "monsoon", bg: "#1f2b3a" },
-      desk: { x: 86, y: 62 },
+    },
+    {
+      id: "stripe-study",
+      name: "Stripe Study",
+      client: "Personal",
+      kind: "Poster series",
+      year: "2026",
+      group: "personal",
+      type: ["Typography", "Poster", "Colour"],
+      role: "Designer",
+      summary:
+        "Twelve posters built from one T-shirt: oxblood, sky blue and cream stripes, set against a single letter. A way to practise colour with a fixed palette.",
+      cover: { art: "stripes", bg: "#5a2722" },
+    },
+    {
+      id: "golden-hour",
+      name: "Golden Hour",
+      client: "Personal",
+      kind: "Photo series",
+      year: "2026",
+      group: "personal",
+      type: ["Photography", "Editing"],
+      role: "Photographer",
+      summary:
+        "A running series shot in the 40 minutes before sunset at lakes around the city. One camera, no reflectors, whatever the sky gives.",
+      gallery: [
+        { src: "assets/sun.webp", alt: "The sun breaking through cloud above a lake" },
+        { src: "assets/lake.webp", alt: "A wooded island on a still lake at dusk" },
+        { src: "assets/cap.webp", alt: "Portrait in a cap against an orange sky" },
+      ],
+      cover: { image: "assets/sun.webp" },
     },
   ],
 
-  // Other things on the desktop. `opens` names a window: about, about:cv, photos, mail, work, links, trash.
-  files: [
-    { id: "portrait", name: "kristan.jpg", icon: "image", src: "assets/kristan-600.webp", opens: "preview", desk: { x: 72, y: 72 } },
-    { id: "readme", name: "README.txt", icon: "text", opens: "about", desk: { x: 30, y: 76 } },
-    { id: "resume", name: "Resume.pdf", icon: "pdf", opens: "resume", desk: { x: 63, y: 79 } },
-    { id: "photos-folder", name: "Photos", icon: "folder", opens: "photos", desk: { x: 84, y: 79 }, phone: false },
-  ],
-
-  // The Photos app.
-  photos: [
-    { src: "assets/kristan.webp", thumb: "assets/kristan-600.webp", alt: "Kristan at a lakeside railing at sunset", caption: "Me, at the lake, right before the sun went." },
-    { src: "assets/sun.webp", alt: "The sun breaking through cloud above a lake", caption: "Five minutes later it was gone." },
-    { src: "assets/lake.webp", alt: "A wooded island on a still lake at dusk", caption: "The island nobody can get to." },
-    { src: "assets/stripes.webp", alt: "Close-up of a striped terry T-shirt in oxblood, sky blue and cream", caption: "The shirt that became Stripe Study." },
-    { src: "assets/cap.webp", alt: "Portrait in a cap against an orange sky", caption: "Golden hour, my favourite time to think." },
-    { src: "assets/phone.webp", alt: "A hand holding a phone in a clear case", caption: "Where every prototype gets tested first." },
-  ],
-
-  trash: [
-    { name: "logo-final-FINAL-v7.fig", note: "v8 was the one." },
-    { name: "hamburger-menu.svg", note: "Replaced by a tab bar. Nobody missed it." },
-    { name: "dark-patterns.txt", note: "Deleted on principle." },
-  ],
+  /* ---------------- Contact (the chai) ---------------- */
+  contact: {
+    heading: "Chai's on me.",
+    text:
+      "If you're building something people should understand and trust, I'd love to hear about it. Full-time, freelance, or just a chat about design.",
+    reply: "I usually reply within a day.",
+  },
 };
