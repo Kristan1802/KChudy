@@ -3,83 +3,73 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Kristan OS</title>
-<meta name="description" content="Kristan is a product designer in Bengaluru. Open the files on this desktop to see projects, photos and how to get in touch.">
-<meta property="og:title" content="Kristan OS">
-<meta property="og:description" content="The portfolio of Kristan, a product designer in Bengaluru, set up as a desktop.">
-<meta property="og:image" content="assets/kristan.webp">
-<meta name="theme-color" content="#f1f0ee">
-<!-- BUILD:HEAD -->
+<title>Kristan · Design what excites</title>
+<meta name="description" content="Kristan is a product designer in Hyderabad. Look around the room: open the laptop for work, the sketchbook for the story, and the chai to get in touch.">
+<meta property="og:title" content="Kristan · Design what excites">
+<meta property="og:description" content="The portfolio of Kristan, a product designer in Hyderabad, set in a room at night.">
+<meta property="og:image" content="assets/room.webp">
+<meta name="theme-color" content="#0d0b14">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap">
-<link rel="preload" as="image" href="assets/wall-person.webp">
-<link rel="stylesheet" href="styles.css">
-<script>
-  try {
-    var t = localStorage.getItem("kos-theme");
-    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
-  } catch (e) {}
-  document.documentElement.classList.add("js");
-</script>
-<!-- /BUILD:HEAD -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Instrument+Sans:wdth,wght@75..100,400..700&family=Instrument+Serif:ital@0;1&family=VT323&display=swap">
+<link rel="preload" as="image" href="assets/room.webp" fetchpriority="high">
+<link rel="stylesheet" href="room.css">
+<script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
-<!-- BUILD:BODY -->
-<div class="os booting" id="os">
+<div class="app is-loading" id="app">
 
-  <div class="wall" id="wall">
-    <img class="wall-img wall-bg" id="wallBg" alt="" width="1200" height="1600" decoding="async" hidden>
-    <h1 class="masthead" id="masthead"><span class="mh-word" id="mhWord">Kristan</span><i class="mh-probe" id="mhProbe" aria-hidden="true"></i><span class="sr-only">, product designer in Bengaluru</span></h1>
-    <img class="wall-img wall-fg" id="wallFg" src="assets/wall-person.webp" alt="" width="1200" height="1600" decoding="async">
+  <div class="room" id="room">
+    <div class="cam" id="cam">
+      <div class="stage" id="stage">
+        <img class="room-img" id="roomImg" src="assets/room.webp" width="2000" height="1125" decoding="async" fetchpriority="high"
+          alt="A pixel-art room at night. Someone sits in a desk chair with a sketchbook, looking out of a big window at Hyderabad: the Durgam Cheruvu cable bridge lit up over the lake and the Charminar glowing in the distance. A neon sign on the wall reads Design What Excites. There is a closed laptop, a lamp and a mug of chai on the desk, figurines on the shelves, a games console, a bean bag, and a cat asleep on the bed.">
+        <div class="fx" id="fx" aria-hidden="true"></div>
+        <div class="spots" id="spots" role="group" aria-label="Things in the room"></div>
+      </div>
+    </div>
   </div>
 
-  <header class="menubar" id="menubar">
-    <div class="mb-left">
-      <button class="mb-btn mb-logo" id="logoBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="logoMenu" aria-label="Site menu"></button>
-      <button class="mb-btn mb-app" type="button" data-open="about" id="mbName">Kristan</button>
-      <nav class="mb-menus" aria-label="Windows">
-        <button class="mb-btn" type="button" data-open="work">Work</button>
-        <button class="mb-btn" type="button" data-open="about">About</button>
-        <button class="mb-btn" type="button" data-open="photos">Photos</button>
-        <button class="mb-btn" type="button" data-open="mail">Contact</button>
-      </nav>
-    </div>
-    <div class="mb-right">
-      <span class="mb-item mb-status" id="mbStatus" hidden><i aria-hidden="true"></i><span></span></span>
-      <span class="mb-item mb-sunset" id="mbSunset" hidden></span>
-      <button class="mb-btn mb-theme" id="themeBtn" type="button"></button>
-      <span class="mb-item mb-clock" id="mbClock"></span>
-    </div>
-    <div class="menu" id="logoMenu" role="menu" aria-labelledby="logoBtn" hidden>
-      <button type="button" role="menuitem" data-open="system">About this desktop</button>
-      <hr>
-      <button type="button" role="menuitem" data-action="cleanup">Clean up icons</button>
-      <button type="button" role="menuitem" data-action="closeall">Close all windows</button>
-      <hr>
-      <button type="button" role="menuitem" data-action="theme">Switch appearance</button>
-    </div>
+  <div class="veil" id="veil" aria-hidden="true"><p class="loader">switching on the lights<span>…</span></p></div>
+
+  <header class="hud">
+    <a class="hud-tag glass" id="hudTag" href="#about"><b id="hudName">Kristan</b><span id="hudRole">Product designer</span></a>
+    <p class="hud-clock glass" id="clock" aria-label="Local time"><span id="clockTime">--:--:-- --</span> <b id="clockTz">IST</b></p>
   </header>
 
-  <main class="desktop" id="desktop" aria-label="Desktop">
-    <p class="coverline coverline-l" id="coverL"></p>
-    <p class="coverline coverline-r" id="coverR"></p>
-    <ul class="icons" id="icons" aria-label="Files on the desktop"></ul>
-    <div class="band" id="band" hidden></div>
-    <aside class="sticky" id="sticky" hidden></aside>
-    <p class="hint" id="hint" role="status" aria-live="polite"></p>
-  </main>
+  <nav class="dock glass" aria-label="Pages">
+    <a href="#work" data-nav="work">Work</a>
+    <a href="#about" data-nav="about">About</a>
+    <a href="#contact" data-nav="contact">Contact</a>
+  </nav>
 
-  <div class="windows" id="windows"></div>
+  <p class="hint" id="hint" role="status" aria-live="polite"></p>
+  <p class="toast" id="toast" role="status" aria-live="polite"></p>
 
-  <nav class="dock" id="dock" aria-label="Dock"><ul class="dock-row" id="dockRow"></ul></nav>
+  <div class="pages" id="pages">
+    <section class="page page-about" id="page-about" aria-labelledby="aboutTitle" hidden></section>
+    <section class="page page-work" id="page-work" aria-labelledby="workTitle" hidden></section>
+    <section class="page page-contact" id="page-contact" aria-labelledby="contactTitle" hidden></section>
+  </div>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <filter id="ripple" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.006 0.09" numOctaves="2" seed="7" result="noise">
+        <animate attributeName="baseFrequency" dur="14s" values="0.006 0.09;0.008 0.12;0.006 0.09" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feColorMatrix in="noise" type="matrix" values="1 0 0 0 0  0 0 0 0 0.5  0 0 0 0 0  0 0 0 0 1" result="flat"/>
+      <feDisplacementMap in="SourceGraphic" in2="flat" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
 
-  <noscript><p class="noscript">This desktop needs JavaScript. Write to Kristan at hello@kristan.design.</p></noscript>
+  <noscript>
+    <div class="noscript">
+      <h1>Kristan, product designer in Hyderabad</h1>
+      <p>This room needs JavaScript to walk around. You can still write to me at <a href="mailto:hello@kristan.design">hello@kristan.design</a>.</p>
+    </div>
+  </noscript>
 </div>
 <script src="content.js"></script>
-<script src="main.js"></script>
-<!-- /BUILD:BODY -->
+<script src="room.js"></script>
 </body>
 </html>
